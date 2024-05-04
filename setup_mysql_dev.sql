@@ -1,4 +1,4 @@
----!/usr/bin/bash
+#!/usr/bin/bash
 --- this script prepares a MYSQL server for the project
 --- will be creating a new database hbnb_dev_db
 --- will be creating a new user hbnb_dev (in localhost)
