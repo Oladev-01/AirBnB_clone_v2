@@ -13,7 +13,8 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        """"""
+        """this method returns City instances from file storage whose state id is the
+        same as the current instance id"""
         from models import storage
         from models.city import City
         cities_list = []
