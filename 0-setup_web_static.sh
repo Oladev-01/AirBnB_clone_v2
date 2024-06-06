@@ -3,7 +3,7 @@
 # of web static
 
 # Checking if nginx is installed or not before installing on the server
-if [ ! -x "$(command -v  nginx)" ]; then
+if [ ! -x "$(command -v nginx)" ]; then
     sudo apt update
     sudo apt install -y nginx
 fi
