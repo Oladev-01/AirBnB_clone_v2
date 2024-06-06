@@ -43,7 +43,7 @@ echo "<html>
 sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 
 # Setting ownership of user and group of the folder '/data/' recursively to ubuntu
-sudo chown -R oladev-01:oladev-01 /data/
+sudo chown -R ubuntu:ubuntu /data/
 
 # Updating the nginx config to serve the page from /data/web_static/current/ to hbnb_static
 sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
