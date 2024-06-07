@@ -1,64 +1,72 @@
 #!/usr/bin/python3
 """
 This fabric script uncompresses the archive
-and then deploys it to the servers
+and then deploys it to the servers.
 """
 
-from fabric import task, env, run, put, local
+from fabric import task, env, run, put
 import os
 
+# Define the hosts where the script will be deployed
 env.hosts = ['ubuntu@34.232.72.189', 'ubuntu@54.160.114.58']
-
 
 @task
 def do_deploy(archive_path):
-    """this function deploys the archived folder to the server
-    and runs necessary remote commands on the server"""
+    """
+    Deploy the archived folder to the server and run necessary remote commands.
 
+    Args:
+        archive_path (str): The path to the archive file to be deployed.
+
+    Returns:
+        bool: True if deployment succeeded, False otherwise.
+    """
     if not os.path.exists(archive_path):
         return False
 
     try:
-        # getting the filename of the archive folder
+        # Get the filename of the archive folder
         archive_name = os.path.basename(archive_path)
-        # the name of the folder which the compressed file will
-        #  be stored as in the /tmp folder
+        # The name of the folder which the compressed file will be stored as in the /tmp folder
         tmp_name = f"/tmp/{archive_name}"
-        # like scp, copying the local file to the server
+        # Copy the local file to the server
         put(archive_path, tmp_name)
 
-        rem_archive_name = "/data/web_static/releases/{}".format(
-            archive_name.split('.')[0])
+        # Define the name of the remote archive folder
+        rem_archive_name = "/data/web_static/releases/{}".format(archive_name.split('.')[0])
         run(f"mkdir -p {rem_archive_name}")
-        # extracting the compressed file into /data/web_static/releases/ folder
+        # Extract the compressed file into /data/web_static/releases/ folder
         run(f"tar -xzf {tmp_name} -C {rem_archive_name}")
-        # deleting the archived file from /tmp
+        # Delete the archived file from /tmp
         run(f"rm {tmp_name}")
-        # moving the extracted files from the web_static
-        #  folder into the parent folder
+        # Move the extracted files from the web_static folder into the parent folder
         run(f"mv {rem_archive_name}/web_static/* {rem_archive_name}")
-        # deleting the extracted web_static folder
+        # Delete the extracted web_static folder
         run(f"rm -rf {rem_archive_name}/web_static")
-        # deleting the sym link which was pointing
-        #  to /data/web_static/releases/test
-        # and make it point to the uncompressed folder
+        # Delete the symlink pointing to the previous version and create a new one
         run(f"rm /data/web_static/current")
         run(f"ln -s {rem_archive_name} /data/web_static/current")
 
         return True
 
     except Exception as e:
-        print(f"this is the error: {e}")
+        print(f"This is the error: {e}")
         return False
-
 
 @task
 def deploy():
-    """this function executes deployment on all servers"""
+    """
+    Execute deployment on all servers.
 
+    This function executes the deployment process by calling the do_deploy
+    function for each host specified in env.hosts.
+
+    Returns:
+        None
+    """
     archive_path = "~/AirBnB_clone_v2/versions/web_static_20240606222430.tgz"
     results = []
-    # opening connection to the hosts
+    # Call do_deploy for each host
     for host in env.hosts:
         result = do_deploy(archive_path)
         results.append(result)
