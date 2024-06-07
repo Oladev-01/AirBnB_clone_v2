@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""This fabric script uncompress the archive
-and then deploy to the servers"""
+"""
+This fabric script uncompress the archive
+and then deploy to the servers
+"""
 
 from fabric.connection import Connection
 from fabric import task
