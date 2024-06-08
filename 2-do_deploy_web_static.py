@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
     Distributes an archive to web servers.
 
