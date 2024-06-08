@@ -1,6 +1,5 @@
 from fabric.utils import abort
 from fabric import task
-from fabric.state import env
 
 @task
 def commit(c):
