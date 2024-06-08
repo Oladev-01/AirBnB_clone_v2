@@ -14,6 +14,7 @@ import os
 
 
 env.hosts = ['ubuntu@34.232.72.189', 'ubuntu@54.160.114.58']
+env.key_filename = '~/.ssh/id_rsa'
 env.user = 'ubuntu'
 
 

@@ -1,6 +1,11 @@
 #!/usr/bin/python3
-try:
-    from paramiko import auth_strategy
-    print("paramiko.auth_strategy exists")
-except ImportError:
-    print("paramiko.auth_strategy does not exist")
+from fabric.api import task
+@task
+def do_this():
+    local('return True')
+
+if __name__ == "__main__":
+    check = do_this()
+    if check:
+        print("all is well!")
+
