@@ -9,6 +9,7 @@ if [ ! -x "$(command -v nginx)" ]; then
 fi
 sudo ufw allow 'Nginx HTTP'
 
+
 # Checks if the folder "/data/" exists before creating a new one
 if [ ! -d "/data/" ]; then
     sudo mkdir -p /data
