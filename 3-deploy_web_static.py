@@ -49,8 +49,8 @@ def do_deploy(archive_path):
         return False
 
     # Extract the filename from the archive path
-    filename = os.path.basename(archive_path)
-    archive_name = os.path.splitext(filename)[0]
+    filename = archive_path.split('/')[-1]
+    archive_name = filename.split('.')[0]
 
     # Upload the archive to /tmp/ directory of the web servers
     put(archive_path, '/tmp/')
