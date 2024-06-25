@@ -10,8 +10,8 @@ from models.review import Review
 from models.user import User
 
 
-
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+models_t = os.getenv('HBNB_TYPE_STORAGE')
+if models_t == 'db':
     storage = DBStorage()
     storage.reload()
 else:

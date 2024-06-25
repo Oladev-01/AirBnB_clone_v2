@@ -3,7 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-
+import models
 
 class State(BaseModel, Base):
     """ State class """
@@ -15,10 +15,11 @@ class State(BaseModel, Base):
     def cities(self):
         """this method returns City instances from file storage whose state id is the
         same as the current instance id"""
-        from models import storage
-        from models.city import City
-        cities_list = []
-        for city in storage.all(City).values():
-            if city.state_id == self.id:
-                cities_list.append(city)
-        return cities_list
+        if models.models_t != 'db':
+            from models import storage
+            from models.city import City
+            cities_list = []
+            for city in storage.all(City).values():
+                if city.state_id == self.id:
+                    cities_list.append(city)
+            return cities_list
