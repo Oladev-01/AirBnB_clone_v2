@@ -67,4 +67,4 @@ class DBStorage():
 
     def close(self):
         """this clears existing configuration"""
-        self.__session.remove()
+        DBStorage.__session.remove()
