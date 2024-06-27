@@ -5,15 +5,18 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 import models
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade="all, delete-orphan", backref="state")
+    cities = relationship("City", cascade="all,\
+                           delete-orphan", backref="state")
 
     @property
     def cities(self):
-        """this method returns City instances from file storage whose state id is the
+        """this method returns City instances from file storage
+          whose state id is the
         same as the current instance id"""
         if models.models_t != 'db':
             from models import storage
