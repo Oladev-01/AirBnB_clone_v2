@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-from fabric.api import task
-@task
-def do_this():
-    local('return True')
+from models import storage
+from models.state import State
 
-if __name__ == "__main__":
-    check = do_this()
-    if check:
-        print("all is well!")
-
+# Retrieve all states
+states = storage.all(State)
+for state in states.values():
+    if state.name == 'Nigeria':
+        storage.delete(state)
+        storage.save()
+# Print each state's id and name
