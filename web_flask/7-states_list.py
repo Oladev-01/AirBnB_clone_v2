@@ -5,6 +5,8 @@ from the database"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+from models.city import City
+
 
 app = Flask(__name__)
 
@@ -19,7 +21,7 @@ def clean_up(exception):
 def list_states():
     """listing the states in alphabetical order"""
     states = list(storage.all(State).values())
-    states = list(sorted(states, key=lambda state: state.name))
+    states = sorted(states, key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
 
 

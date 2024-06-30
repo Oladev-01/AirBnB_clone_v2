@@ -7,10 +7,7 @@ states = sorted(states, key=lambda state: state.name)
 for state in states:
     print(f"this is the state\t{state.id}:{state.name}")
     print("these are the cities")
-
-    cities = list(storage.all(City).values())
-    cities = sorted(cities, key=lambda city: city.name)
+    cities = sorted(state.cities, key=lambda city: city.name)
     for city in cities:
-        if city.state_id == state.id:
-            print(f"{city.id}:{city.name}")
+        print(f"{city.id}:{city.name}")
 
