@@ -19,7 +19,7 @@ def clean_up(exception):
 def list_states():
     """listing the states in alphabetical order"""
     states = list(storage.all(State).values())
-    states = sorted(states, key=lambda state: state.name)
+    states = list(sorted(states, key=lambda state: state.name))
     return render_template('7-states_list.html', states=states)
 
 
