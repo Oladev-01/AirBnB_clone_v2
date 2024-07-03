@@ -58,3 +58,4 @@ class Place(BaseModel, Base):
             if review.place_id == self.id:
                 place_inst.append(review)
         return place_inst
+    

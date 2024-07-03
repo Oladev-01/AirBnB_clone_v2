@@ -1,13 +1,9 @@
 #!/usr/bin/python3
+from models.place import Place
 from models import *
-from models import storage
 
-states = list(storage.all(State).values())
-states = sorted(states, key=lambda state: state.name)
-for state in states:
-    print(f"this is the state\t{state.id}:{state.name}")
-    print("these are the cities")
-    cities = sorted(state.cities, key=lambda city: city.name)
-    for city in cities:
-        print(f"{city.id}:{city.name}")
-
+session = storage._DBStorage__session
+owner_name = "Lynn Melton"
+query_result = session.query(Place).filter_by(name="Beautiful Home 1 Mile from Downtown").first()
+print(query_result.description)
+print(type(query_result))
